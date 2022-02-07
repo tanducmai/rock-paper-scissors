@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 #
-# File:         salary_calculator.py
+# File:         main.py
 # Author:       Tan Duc Mai
 # Email:        tan.duc.work@gmail.com
 # Date:         27-Nov-21
@@ -21,10 +21,12 @@ SELECTION = ['rock', 'paper', 'scissors']
 
 # ---------------------------- Function Definitions ---------------------------
 def display_details():
-    print('Author: Tan Duc Mai',
-          'Email: tan.duc.work@gmail.com',
-          sep='\n',
-          end='\n\n')
+    print(
+        'Author: Tan Duc Mai',
+        'Email: tan.duc.work@gmail.com',
+        sep='\n',
+        end='\n\n',
+    )
 
 
 def get_choice():
@@ -132,13 +134,15 @@ def main():
         print()
 
     # Summary.
-    print(f'\nGame Summary',
-          f'------------',
-          f'You played {rounds} games:',
-          f'* Won:          {count_win}',
-          f'* Lost & Drew:  {rounds - count_win}',
-          f'\nThanks for playing!',
-          sep='\n')
+    print(
+        f'\nGame Summary',
+        f'------------',
+        f'You played {rounds} games:',
+        f'* Won:          {count_win}',
+        f'* Lost & Drew:  {rounds - count_win}',
+        f'\nThanks for playing!',
+        sep='\n',
+    )
 
 
 # --------------------------- Call the Main Function --------------------------

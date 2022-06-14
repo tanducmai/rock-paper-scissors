@@ -14,7 +14,11 @@
 # =============================================================================
 
 # ------------------------------- Module Import -------------------------------
+# Stdlib
 from random import randint
+
+# Third party
+import icontract
 
 
 # ------------------------------- Named Constants -----------------------------
@@ -23,13 +27,13 @@ WIN_PAIRS = ((1, 3), (2, 1), (3, 2))
 
 
 # ---------------------------- Function Definitions ---------------------------
+@icontract.ensure(lambda result: result is None)
 def display_details():
     """Display author's details
 
     Returns
     -------
     None
-        The valid guess received from the user.
     """
     print('Author: Tan Duc Mai',
           'Email: tan.duc.work@gmail.com',
@@ -37,6 +41,7 @@ def display_details():
           end='\n\n')
 
 
+@icontract.ensure(lambda result: isinstance(result, int))
 def get_choice():
     """Prompt for, read, and validate user's guess.
 
@@ -58,6 +63,11 @@ def get_choice():
     return int(choice)
 
 
+@icontract.require(
+    lambda player_1, player_2, count_win:
+        isinstance(player_1, int) & isinstance(player_2, int)
+        & isinstance(count_win, int))
+@icontract.ensure(lambda result: isinstance(result, int))
 def rock_paper_sci(player_1, player_2, count_win):
     """Play the game of rock-paper-scissors.
 
@@ -141,7 +151,7 @@ def main():
           'You played ' + str(rounds) + ' games:',
           '* Won         : ' + str(count_win),
           '* Lost & Drew : ' + str(rounds - count_win),
-          '* Percentage  : {:.0%}'.format(count_win/rounds),
+          '* Percentage  : {:.2%}'.format(count_win/rounds),
           '\nThanks for playing!',
           sep='\n')
 

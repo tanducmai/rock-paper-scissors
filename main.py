@@ -112,10 +112,9 @@ def rock_paper_sci(player_1, player_2, count_win):
 # ------------------------------- Main Function -------------------------------
 def main():
     # Variable initialisation.
-    rounds = 0
-    count_win = 0
-    play = ''
     selections = ('rock', 'paper', 'scissors')
+    rounds = count_win = 0
+    play = ''
 
     # Start looping the game.
     while play.lower() not in VALID_ANSWERS[3:]:

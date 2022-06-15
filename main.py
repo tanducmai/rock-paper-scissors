@@ -21,11 +21,6 @@ from random import randint
 import icontract
 
 
-# ------------------------------- Named Constants -----------------------------
-VALID_ANSWERS = ('', 'y', 'yes', 'n', 'no')
-WIN_PAIRS = ((1, 3), (2, 1), (3, 2))
-
-
 # ---------------------------- Function Definitions ---------------------------
 @icontract.ensure(lambda result: result is None)
 def display_details():
@@ -42,7 +37,7 @@ def display_details():
 
 
 @icontract.ensure(lambda result: isinstance(result, int))
-def get_choice():
+def get_user_choice():
     """Prompt for, read, and validate user's guess.
 
     Returns
@@ -86,22 +81,23 @@ def rock_paper_sci(player_1, player_2, count_win):
         The number of times the user won the game.
     """
     players = (player_1, player_2)
+    win_pairs = ((1, 3), (2, 1), (3, 2))
 
     if players == players[::-1]:
         print('Draw - no winner!')
     else:
-        if players in WIN_PAIRS:
+        if players in win_pairs:
             # winner = players[0]
             print('You win', end=' - ')
             count_win += 1
         else:
-            # players[::-1] in WIN_PAIRS
+            # players[::-1] in win_pairs
             # winner = players[1]
             print('You lose', end=' - ')
 
-        if WIN_PAIRS[0] in {players, players[::-1]}:
+        if win_pairs[0] in {players, players[::-1]}:
             print('rock crushes scissors!')
-        elif WIN_PAIRS[1] in {players, players[::-1]}:
+        elif win_pairs[1] in {players, players[::-1]}:
             print('paper covers rocks!')
         else:
             print('scissors cut paper!')
@@ -112,23 +108,28 @@ def rock_paper_sci(player_1, player_2, count_win):
 # ------------------------------- Main Function -------------------------------
 def main():
     # Variable initialisation.
-    selections = ('rock', 'paper', 'scissors')
+    selections = {
+        1: 'rock',
+        2: 'paper',
+        3: 'scissors',
+    }
     rounds = count_win = 0
+    valid_answers = ('', 'y', 'yes', 'n', 'no')
     play = ''
 
     # Start looping the game.
-    while play.lower() not in VALID_ANSWERS[3:]:
+    while play.lower() not in valid_answers[3:]:
         rounds += 1
 
         # Prompt for, read, and validate user's guess.
-        user = get_choice()
+        user = get_user_choice()
 
-        print('You chose', selections[user - 1], end='.\n')
+        print('You chose', selections[user], end='.\n')
 
         # Computer's choice.
         comp = randint(1, 3)
 
-        print('Computer chose', selections[comp - 1], end='.\n')
+        print('Computer chose', selections[comp], end='.\n')
 
         # Start the game and determine the winner.
         # Return how many times the user won the game.
@@ -137,10 +138,10 @@ def main():
         # Ask to play again.
         play = None
 
-        while play not in VALID_ANSWERS:
+        while play not in valid_answers:
             play = input('\nDo you want to play again [Y/n]? ')
-            if play.lower() not in VALID_ANSWERS:
-                print(f'Please answer one of {", ".join(VALID_ANSWERS[1:])}.')
+            if play.lower() not in valid_answers:
+                print(f'Please answer one of {", ".join(valid_answers[1:])}.')
 
         print()
 

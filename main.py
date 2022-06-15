@@ -29,7 +29,7 @@ WIN_PAIRS = ((1, 3), (2, 1), (3, 2))
 # ---------------------------- Function Definitions ---------------------------
 @icontract.ensure(lambda result: result is None)
 def display_details():
-    """Display author's details
+    """Display author's details.
 
     Returns
     -------

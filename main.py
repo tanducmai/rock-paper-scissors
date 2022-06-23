@@ -15,7 +15,7 @@
 
 # ------------------------------- Module Import -------------------------------
 # Stdlib
-from random import randint
+import random
 
 # Third party
 import icontract
@@ -37,7 +37,13 @@ def display_details():
 
 
 @icontract.ensure(lambda result: isinstance(result, int))
-def get_user_choice():
+def generate_number():
+    """Generate a random number in the range (1-3) inclusive."""
+    return random.randint(1, 3)
+
+
+@icontract.ensure(lambda result: isinstance(result, int))
+def get_choice():
     """Prompt for, read, and validate user's guess.
 
     Returns
@@ -63,7 +69,7 @@ def get_user_choice():
         isinstance(player_1, int) & isinstance(player_2, int)
         & isinstance(count_win, int))
 @icontract.ensure(lambda result: isinstance(result, int))
-def rock_paper_sci(player_1, player_2, count_win):
+def determine_winner(player_1, player_2, count_win):
     """Play the game of rock-paper-scissors.
 
     Parameters
@@ -122,18 +128,18 @@ def main():
         rounds += 1
 
         # Prompt for, read, and validate user's guess.
-        user = get_user_choice()
+        user = get_choice()
 
         print('You chose', selections[user], end='.\n')
 
         # Computer's choice.
-        comp = randint(1, 3)
+        comp = generate_number()
 
         print('Computer chose', selections[comp], end='.\n')
 
         # Start the game and determine the winner.
         # Return how many times the user won the game.
-        count_win = rock_paper_sci(user, comp, count_win)
+        count_win = determine_winner(user, comp, count_win)
 
         # Ask to play again.
         play = None
